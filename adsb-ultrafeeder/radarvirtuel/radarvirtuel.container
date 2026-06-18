@@ -1,0 +1,37 @@
+[Unit]
+Description=RadarVirtuel Feeder (Rootless)
+After=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
+Wants=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
+BindsTo=ultrafeeder.service
+
+[Container]
+HostName=radarvirtuel
+ContainerName=radarvirtuel
+Image=ghcr.io/sdr-enthusiasts/docker-radarvirtuel:latest
+Network=adsb
+
+EnvironmentFile=%h/.config/containers/systemd/radarvirtuel.env
+Environment=TZ=America/New_York
+
+Volume=%h/radarvirtuel/data:/data:rw
+Volume=/proc/cpuinfo:/host/cpuinfo:ro
+Volume=/etc/localtime:/etc/localtime:ro
+
+# ---------- Hardening ----------
+#NoNewPrivileges=yes
+#DropCapability=all
+#AddCapability=CAP_NET_BIND_SERVICE
+#AddCapability=CAP_SETUID
+#AddCapability=CAP_SETGID
+
+# ---------- tmpfs ----------
+#Mount=type=tmpfs,destination=/tmp,tmpfs-size=128M,tmpfs-mode=1777
+
+# ---------- Resource limits ----------
+#PodmanArgs=--memory=256m --cpu-quota=50000
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
