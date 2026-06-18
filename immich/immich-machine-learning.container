@@ -1,0 +1,43 @@
+[Unit]
+Description=Immich Machine Learning
+After=podman-user-wait-network-online.service immich-network.service
+Wants=immich-network.service
+
+[Container]
+AutoUpdate=registry
+Network=immich.network
+ContainerName=immich-machine-learning
+HostName=immich-machine-learning
+Image=ghcr.io/immich-app/immich-machine-learning:release-openvino
+
+# GPU device (Intel / VAAPI)
+#AddDevice=/dev/dri:/dev/dri
+#GroupAdd=keep-groups
+
+# Cache volume
+Volume=%h/immich-app/model-cache:/cache
+Environment=TRANSFORMERS_CACHE=/cache
+Environment=ONNXRUNTIME_CACHE_DIR=/cache
+Environment=TZ=America/New_York
+
+# ---------- Hardening (uncomment to lock down) ----------
+#NoNewPrivileges=yes
+#DropCapability=all
+
+# ---------- Temporary filesystems ----------
+#Mount=type=tmpfs,destination=/tmp,tmpfs-size=2G,tmpfs-mode=1777
+#Mount=type=tmpfs,destination=/run,tmpfs-size=128M,tmpfs-mode=1777
+#Mount=type=tmpfs,destination=/var/cache,tmpfs-size=1G,tmpfs-mode=1777
+
+# ---------- Resource limits ----------
+#PodmanArgs=--memory=10G
+#CPUAccounting=yes
+#CPUShares=512
+#CPUQuota=800%
+#AllowedCPUs=0-11
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
