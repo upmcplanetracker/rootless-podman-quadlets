@@ -1,0 +1,56 @@
+[Unit]
+Description=Ente Museum (Auth Server)
+After=podman-user-wait-network-online.service ente-network.service ente-database.service
+BindsTo=ente-database.service
+Wants=ente-web.service
+PropagatesStopTo=ente-web.service
+
+[Container]
+HostName=ente-museum
+AutoUpdate=registry
+ContainerName=ente-museum
+Network=ente.network
+Image=ghcr.io/ente-io/server
+
+# Port – the server API
+PublishPort=8085:8080
+
+# Volumes – mount museum.yaml (configuration) and data
+Volume=%h/my-ente/museum.yaml:/etc/ente/museum.yaml:ro
+Volume=%h/my-ente/data:/data:rw
+Volume=%h/my-ente/ente_logs:/var/logs/ente
+Volume=%h/my-ente:/etc/ente:ro
+
+# Environment
+Environment=TZ=America/New_York
+Environment=ENTE_CONFIG_PATH=/etc/ente/museum.yaml
+Environment=ENTE_DB_HOST=ente-database
+Environment=ENTE_DB_PORT=5432
+Environment=ENTE_DB_NAME=ente_db
+EnvironmentFile=%h/.config/containers/systemd/ente-museum.env
+Environment=ENTE_GIN_TRUSTED_PROXIES=127.0.0.1,192.168.1.0/24,10.89.0.0/24
+Environment=ENTE_LOG_LEVEL=warn
+Environment=GIN_MODE=release
+
+# Log rotation
+LogDriver=k8s-file
+LogOpt=max-size=10mb
+
+# ---------- Hardening (uncomment to lock down) ----------
+#NoNewPrivileges=true
+#ReadOnly=true
+#DropCapability=all
+
+# ---------- Temporary filesystems (required if ReadOnly=true) ----------
+#Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
+#Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
+#Mount=type=tmpfs,destination=/var/cache,tmpfs-size=256M,tmpfs-mode=1777
+
+# ---------- Resource limits ----------
+#PodmanArgs=--memory=4G --memory-reservation=1G
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
