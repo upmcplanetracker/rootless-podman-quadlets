@@ -1,40 +1,44 @@
 [Unit]
-Description=Podman Proxy (rootless)
+Description=Tdarr Remote Node (Rootless)
 After=podman-user-wait-network-online.service
 Wants=podman-user-wait-network-online.service
 
 [Container]
-Image=lscr.io/linuxserver/socket-proxy:latest
-ContainerName=podman-proxy
-HostName=podman-proxy
+ContainerName=tdarr-node
+HostName=tdarr-node
+Image=ghcr.io/haveagitgat/tdarr_node:latest
 AutoUpdate=registry
 
-# Ports – expose the proxied socket
-PublishPort=2375:2375
+# Ports – node communication
+# Using IPv6 binding [::] ensures dual‑stack support; adjust if needed.
+PublishPort=[::]:8267:8267
 
-# Environment – control which API endpoints are accessible
-Environment=CONTAINERS=1
-Environment=INFO=1
-Environment=EVENTS=1
-Environment=IMAGES=1
-Environment=VOLUMES=1
-Environment=NETWORKS=1
-Environment=POST=1
-Environment=DELETE=1
+# GPU device for Intel QuickSync / VAAPI
+AddDevice=/dev/dri:/dev/dri:rw
+
+# Environment
 Environment=TZ=America/New_York
+Environment=nodeName=pihole2
+Environment=nodeID=pihole2-node
+# How the node reaches the server (change to your server’s URL)
+Environment=serverURL=http://pihole1.lan:8266
 
-# Podman socket (read‑only) – %t expands to /run/user/<UID>
-Volume=%t/podman/podman.sock:/var/run/docker.sock:ro
+# Volumes
+Volume=%h/jellyfin/tdarr/node-logs:/app/logs
+Volume=/media/Videos/Movies:/media/movies:rw
+Volume=/media/Videos/tvshows:/media/tvshows:rw
+Volume=/media/Videos/abbysmovies:/media/abbysmovies:rw
+Volume=/media/Videos/othervideos:/media/othervideos:rw
+Volume=/temp:/temp
 
 # ---------- Hardening (uncomment to lock down the container) ----------
-# The socket‑proxy uses s6‑overlay; for ReadOnly=true you must also enable the tmpfs mounts.
-#NoNewPrivileges=yes
-#ReadOnly=yes
-#DropCapability=ALL
+#NoNewPrivileges=true
 
-# ---------- Temporary filesystems (required if ReadOnly=true) ----------
-#Mount=type=tmpfs,destination=/tmp,tmpfs-size=128M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/run,tmpfs-size=16M,tmpfs-mode=1777
+# ---------- Temporary filesystems (required for caching and writable paths) ----------
+#Tmpfs=/app/unmappedNodeCache:size=1G,rw,mode=1777
+#Tmpfs=/tmp:size=1G,rw,mode=1777
+#Tmpfs=/run:size=64M,rw,mode=1777
+#Tmpfs=/app/configs:size=32M,rw,mode=1777
 
 [Service]
 Restart=on-failure
