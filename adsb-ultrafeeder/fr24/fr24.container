@@ -1,0 +1,39 @@
+[Unit]
+Description=fr24
+After=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
+Wants=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
+BindsTo=ultrafeeder.service
+
+[Container]
+HostName=fr24
+ContainerName=fr24
+Image=ghcr.io/sdr-enthusiasts/docker-flightradar24:latest
+Network=adsb
+PublishPort=8754:8754
+PublishPort=8755:8755
+
+Environment=BEASTHOST=ultrafeeder
+Environment=BEASTPORT=30005
+Environment=TZ=America/New_York
+Environment=BIND_INTERFACE=0.0.0.0
+EnvironmentFile=%h/.config/containers/systemd/fr24.env
+
+# ---------- Hardening ----------
+#NoNewPrivileges=yes
+#DropCapability=all
+#AddCapability=CAP_NET_BIND_SERVICE
+#AddCapability=CAP_SETUID
+#AddCapability=CAP_SETGID
+#AddCapability=CAP_CHOWN
+#AddCapability=CAP_DAC_OVERRIDE
+
+# ---------- tmpfs ----------
+#Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
+#Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
+#Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
