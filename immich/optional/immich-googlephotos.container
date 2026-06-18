@@ -1,0 +1,41 @@
+[Unit]
+Description=GPhotos2Immich Sync Service (Optional)
+Wants=immich-server.service
+After=immich-server.service
+
+[Container]
+Image=ghcr.io/warreth/gphotos2immich:latest
+ContainerName=immich-googlephotos
+HostName=immich-googlephotos
+Network=immich.network
+AutoUpdate=registry
+
+# Port – web UI for sync status
+PublishPort=8087:8087
+
+Environment=TZ=America/New_York
+Environment=PORT=8087
+Environment=DISABLE_WEBUI=false
+EnvironmentFile=%h/.config/containers/systemd/immich-googlephotos.env
+
+# Volumes – config and data
+Volume=%h/immich-app/gphotos2immich/config.json:/app/config.json:Z
+Volume=%h/immich-app/gphotos2immich/data:/app/data:Z
+
+# ---------- Hardening ----------
+#NoNewPrivileges=yes
+
+# ---------- Temporary filesystems ----------
+#Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
+#Mount=type=tmpfs,destination=/var/log,tmpfs-size=32M,tmpfs-mode=1777
+
+# ---------- Resource limits ----------
+#CPUQuota=60%
+#MemoryMax=1G
+#MemoryReservation=512M
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
