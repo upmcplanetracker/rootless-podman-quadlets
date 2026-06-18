@@ -1,4 +1,4 @@
-# Omni‑tools
+# [Omni‑tools](https://github.com/openaps/openomni)
 
 Collection of simple web tools (nginx‑based).
 
