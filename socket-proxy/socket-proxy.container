@@ -1,0 +1,43 @@
+[Unit]
+Description=Podman Proxy (rootless)
+After=podman-user-wait-network-online.service
+Wants=podman-user-wait-network-online.service
+
+[Container]
+Image=lscr.io/linuxserver/socket-proxy:latest
+ContainerName=podman-proxy
+HostName=podman-proxy
+AutoUpdate=registry
+
+# Ports – expose the proxied socket
+PublishPort=2375:2375
+
+# Environment – control which API endpoints are accessible
+Environment=CONTAINERS=1
+Environment=INFO=1
+Environment=EVENTS=1
+Environment=IMAGES=1
+Environment=VOLUMES=1
+Environment=NETWORKS=1
+Environment=POST=1
+Environment=DELETE=1
+Environment=TZ=America/New_York
+
+# Podman socket (read‑only) – %t expands to /run/user/<UID>
+Volume=%t/podman/podman.sock:/var/run/docker.sock:ro
+
+# ---------- Hardening (uncomment to lock down the container) ----------
+# The socket‑proxy uses s6‑overlay; for ReadOnly=true you must also enable the tmpfs mounts.
+#NoNewPrivileges=yes
+#ReadOnly=yes
+#DropCapability=ALL
+
+# ---------- Temporary filesystems (required if ReadOnly=true) ----------
+#Mount=type=tmpfs,destination=/tmp,tmpfs-size=128M,tmpfs-mode=1777
+#Mount=type=tmpfs,destination=/run,tmpfs-size=16M,tmpfs-mode=1777
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
