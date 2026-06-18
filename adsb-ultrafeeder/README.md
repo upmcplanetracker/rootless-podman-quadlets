@@ -1,4 +1,4 @@
-# ADSB Ultrafeeder Stack (Rootless Podman + Quadlet)
+# [ADSB Ultrafeeder](https://github.com/sdr-enthusiasts Stack) (Rootless Podman + Quadlet)
 
 Complete, secure deployment of the SDR‑Enthusiasts ADSB feeder stack using Podman Quadlets.  
 All containers run **rootless**, share an internal `adsb` network, and auto‑update from registries.
