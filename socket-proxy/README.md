@@ -1,4 +1,4 @@
-# Socket Proxy
+# [Socket Proxy](https://github.com/linuxserver/docker-socket-proxy)
 
 A secure TCP proxy for Podman’s socket, built from the linuxserver/socket-proxy image.
 It allows remote tools (like a dashboard or Portainer) to talk to Podman without exposing the raw socket.
