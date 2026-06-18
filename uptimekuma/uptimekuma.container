@@ -1,0 +1,39 @@
+[Unit]
+Description=Uptime Kuma Service
+After=podman-user-wait-network-online.service
+Wants=podman-user-wait-network-online.service
+
+[Container]
+Image=docker.io/louislam/uptime-kuma:2
+ContainerName=uptime-kuma
+HostName=uptime-kuma
+AutoUpdate=registry
+
+# Ports
+PublishPort=3001:3001
+
+# Environment
+Environment=PORT=3001
+Environment=TZ=America/New_York
+
+# Volume – persistent database
+Volume=%h/uptime-kuma/data:/app/data
+
+# ---------- Hardening (uncomment to lock down the container) ----------
+#NoNewPrivileges=true
+#ReadOnly=true
+#DropCapability=all
+
+# ---------- Temporary filesystems (required if ReadOnly=true) ----------
+#Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
+#Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
+#Mount=type=tmpfs,destination=/var/log,tmpfs-size=32M,tmpfs-mode=1777
+
+# ---------- Resource limits ----------
+#PodmanArgs=--memory=512m
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
