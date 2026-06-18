@@ -3,6 +3,7 @@ Podman Rootless Containers
 
 A collection of Podman my rootless container stacks, tested and running on **Ubuntu 26.04** with **Podman 5.7.0**, with optional security additions that do not break the container.  
 All services use Quadlet files (`~/.config/containers/systemd/`) so they integrate natively with systemd and start automatically under your user.
+Please visit the individual Github repos for the containers in this repo to find out more about how to configure them, recent changes and issues, and to give them stars.
 
 * * *
 
