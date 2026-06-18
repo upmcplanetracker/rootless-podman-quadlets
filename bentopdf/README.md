@@ -1,4 +1,4 @@
-# BentoPDF
+# [BentoPDF](https://github.com/goodtab/bentopdf)
 
 Stateless PDF conversion service – no volumes, no persistent data.
 
