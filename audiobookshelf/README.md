@@ -1,6 +1,6 @@
 # Audiobookshelf
 
-Audiobookshelf is a self‑hosted audiobook and podcast server.
+[Audiobookshelf](https://github.com/advplyr/audiobookshelf) is a self‑hosted audiobook and podcast server.
 
 ## First run
 - The web interface will be at `http://<your-ip>:13378`
