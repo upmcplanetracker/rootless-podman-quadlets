@@ -46,13 +46,23 @@ This allows your user’s systemd session to run even when you are not logged in
 
 Verify with `loginctl show-user $USER | grep Linger` – should show `Linger=yes`.
 
-### 3\. Set up the Quadlet directory
+### 3\. Secure your environment files (critical)
+
+This repo uses separate `.env` files for secrets (passwords, API keys). **Never commit the real `.env` files** — only the `.env.example` templates are stored here.
+
+After you copy an `.env.example` to `.env` and fill it in, lock it down immediately so that if a container is compromised, the secrets remain unreadable:
+
+    chmod 600 ~/.config/containers/systemd/*.env
+
+This ensures only your user can read the files — not the container’s processes, and not other users on the system.
+
+### 4\. Set up the Quadlet directory
 
     mkdir -p ~/.config/containers/systemd
 
 _If the directory already exists, that’s fine._
 
-### 4\. Grab a container definition
+### 5\. Grab a container definition
 
 Navigate to the service directory you want, then copy the `.container` file:
 
@@ -64,7 +74,7 @@ Navigate to the service directory you want, then copy the `.container` file:
 
 Adjust volumes, environment variables, or uncomment hardening options as needed.
 
-### 5\. Pull the image and generate the systemd unit
+### 6\. Pull the image and generate the systemd unit
 
 Quadlet automatically creates a systemd service from the `.container` file:
 
@@ -75,7 +85,7 @@ Then pull the image (optional but gives you immediate feedback):
     podman pull <image-name>   
     # or let systemd pull it on start
 
-### 6\. Enable and start the container
+### 7\. Enable and start the container
 
     systemctl --user start vert
 
