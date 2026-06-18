@@ -1,4 +1,4 @@
-# Tdarr
+# [Tdarr](https://github.com/haveagitgat/tdarr)
 
 Distributed transcoding automation.
 
