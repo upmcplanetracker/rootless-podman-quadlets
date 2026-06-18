@@ -1,6 +1,4 @@
 # [Immich](https://github.com/immich-app/immich) (Self-hosted Photo Manager)
-
-Immich (Self-hosted Photo Manager)
 ==================================
 
 Complete rootless Immich stack using Podman Quadlets. All containers share an internal `immich.network` and run without root privileges.
