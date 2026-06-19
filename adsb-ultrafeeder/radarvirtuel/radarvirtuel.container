@@ -26,9 +26,6 @@ Volume=/etc/localtime:/etc/localtime:ro
 # ---------- tmpfs ----------
 #Mount=type=tmpfs,destination=/tmp,tmpfs-size=128M,tmpfs-mode=1777
 
-# ---------- Resource limits ----------
-#PodmanArgs=--memory=256m --cpu-quota=50000
-
 [Service]
 Restart=on-failure
 
