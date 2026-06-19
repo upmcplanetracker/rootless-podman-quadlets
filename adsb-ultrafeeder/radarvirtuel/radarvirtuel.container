@@ -8,6 +8,7 @@ HostName=radarvirtuel
 ContainerName=radarvirtuel
 Image=ghcr.io/sdr-enthusiasts/docker-radarvirtuel:latest
 Network=adsb
+AutoUpdate=registry
 
 EnvironmentFile=%h/.config/containers/systemd/radarvirtuel.env
 Environment=TZ=America/New_York
