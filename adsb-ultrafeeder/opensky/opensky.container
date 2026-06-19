@@ -2,7 +2,6 @@
 Description=OpenSky Network Feeder
 After=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
 Wants=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
-BindsTo=ultrafeeder.service
 
 [Container]
 HostName=opensky
