@@ -9,7 +9,7 @@ PropagatesStopTo=tautulli.service
 ContainerName=plex
 Image=docker.io/plexinc/pms-docker:latest
 AutoUpdate=registry
-HostName=pihole1
+HostName=your-hostname
 
 # User mapping – must match your host user (default 1000:1000)
 Environment=PLEX_UID=1000
@@ -18,8 +18,8 @@ Environment=TZ=America/New_York
 Environment=VERSION=docker
 
 # Ports
-PublishPort=32400:32400  # Plex main web UI
-# PublishPort=8181:8181  # optional, see note in README
+PublishPort=32400:32400
+# PublishPort=8181:8181
 
 # GPU device for hardware transcoding (Intel QuickSync / VAAPI)
 AddDevice=/dev/dri:/dev/dri:rw
@@ -36,7 +36,8 @@ Volume=%h/Music/music:/data/music:rw
 #DropCapability=CAP_MKNOD
 #DropCapability=CAP_NET_RAW
 #DropCapability=CAP_AUDIT_WRITE
-#ReadOnly=yes  # if you enable this, uncomment all tmpfs lines
+#ReadOnly=yes
+#if you enable ReadOnly you must uncomment all the tmpfs= below
 
 # ---------- Temporary filesystems ----------
 #Tmpfs=/transcode:size=8G,rw,mode=1777
