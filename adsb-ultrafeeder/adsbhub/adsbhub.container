@@ -26,9 +26,6 @@ EnvironmentFile=%h/.config/containers/systemd/adsbhub.env
 #Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
 #Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
 
-# ---------- Resource limits ----------
-#PodmanArgs=--memory=256m --cpu-quota=50000
-
 [Service]
 Restart=on-failure
 
