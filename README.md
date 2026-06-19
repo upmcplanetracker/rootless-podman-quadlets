@@ -24,8 +24,7 @@ Repository structure
 Each directory below contains a **Quadlet `.container` file** and optional notes.
 
 *   Hardening options (like `no-new-privileges`, `read-only` rootfs, `security-opt`) are **commented out** by default – uncomment what you need.
-*   Temporary drives (`tmpfs`, `:Z` volume flags) are also commented out for clarity but should be strongly considered with containers with frequent HDD/SSD read/writes.
-*   All volumes map into `~/containers/<service>/` by default – no system directories touched.
+*   Temporary drives (`tmpfs`, `:Z` volume flags) are also commented out for clarity but should be strongly considered with containers with frequent HDD/SSD read/writes and must be uncommented if using `ReadOnly`.
    
 * * *
 
