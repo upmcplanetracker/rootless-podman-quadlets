@@ -10,6 +10,7 @@ Image=ghcr.io/sdr-enthusiasts/docker-flightradar24:latest
 Network=adsb
 PublishPort=8754:8754
 PublishPort=8755:8755
+AutoUpdate=registry
 
 Environment=BEASTHOST=ultrafeeder
 Environment=BEASTPORT=30005
