@@ -9,6 +9,7 @@ ContainerName=pfclient
 Image=ghcr.io/sdr-enthusiasts/docker-planefinder:latest
 Network=adsb
 PublishPort=30053:30053
+AutoUpdate=registry
 
 Environment=TZ=America/New_York
 Environment=BEASTHOST=ultrafeeder
