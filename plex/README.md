@@ -13,7 +13,6 @@ Tautulli shares Plex’s network namespace, so it can access Plex at `localhost`
   By default, no extra port is published for Tautulli.
 
 ## Dependencies
-- Tautulli `BindsTo=plex.service` → Tautulli will stop if Plex stops.
 - Plex `PropagatesStopTo=tautulli.service` → stopping Plex also stops Tautulli.
 
 ## Volumes
