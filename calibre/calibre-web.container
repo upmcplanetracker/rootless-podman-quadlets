@@ -1,7 +1,6 @@
 [Unit]
 Description=Calibre-Web Frontend
 After=calibre-gui.service
-BindsTo=calibre-gui.service
 
 [Container]
 ContainerName=calibre-web
