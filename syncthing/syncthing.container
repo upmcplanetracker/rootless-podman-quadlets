@@ -23,7 +23,7 @@ Label=io.podman.annotations.podman.opts="--hostname=syncthing-pihole1"
 
 # Volumes
 Volume=%h/syncthing/config:/var/syncthing/config
-Volume=%h:/home/rickined
+Volume=%h:%h
 Volume=/mnt/sda1/backupfrom40/:/mnt/sda1/backupfrom40/
 
 # Log rotation
