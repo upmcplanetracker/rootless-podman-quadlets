@@ -18,10 +18,10 @@ AddDevice=/dev/dri:/dev/dri:rw
 
 # Environment
 Environment=TZ=America/New_York
-Environment=nodeName=pihole2
-Environment=nodeID=pihole2-node
+Environment=nodeName=your-node-name
+Environment=nodeID=your-node-name-node
 # How the node reaches the server (change to your server’s URL)
-Environment=serverURL=http://pihole1.lan:8266
+Environment=serverURL=http://your-server:8266
 
 # Volumes
 Volume=%h/jellyfin/tdarr/node-logs:/app/logs
