@@ -14,6 +14,7 @@ Why this repo?
 *   **Arguably safer than Docker** – Podman’s daemonless architecture and user‑namespace isolation reduce the attack surface. No privileged `dockerd` socket, no “root equivalent” container escapes.
 *   **Quadlet for systemd** – no need for `podman-compose`; just drop a `.container` file and enable with `systemctl --user`.
 *   Podman is gaining traction, and rootless mode is finally production‑ready for most workloads.
+*   There are good arguments on both sides for rootless vs. rootful mode. I am not advocating one position over the other. I offered these rootless Podmans for those interested in exploring rootless, as I have spent many hours ironing out the network and user id issues that come with rootless.
 
 * * *
 
