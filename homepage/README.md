@@ -15,6 +15,3 @@ Uncomment the `HOMEPAGE_ALLOWED_HOSTS` line in the `.container` file and set you
 ## Docker socket
 The container uses Podman’s socket to show container status.  
 If you don’t need this feature, remove the `DOCKER_HOST` environment and the socket volume.
-
-## Hardening
-All hardening options are commented out. Uncomment the `NoNewPrivileges`, `ReadOnly`, and the corresponding `tmpfs` mounts together.
