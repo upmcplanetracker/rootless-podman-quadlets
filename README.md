@@ -4,7 +4,7 @@ Podman Rootless Containers
 * A collection of Podman my rootless container stacks, tested and running on **Ubuntu 26.04** with **Podman 5.7.0**, with optional security additions that do not break the container.  
 * All services use Quadlet files (`~/.config/containers/systemd/`) so they integrate natively with systemd and start automatically under your user.
 * Please visit the individual Github repos to find out more about how to configure them, recent changes and issues, and to give them stars.
-* *You will need to edit these .container and .env files to fit your situation. These work on my setup, which is an Intel 13i7 with 2.0 tb NVME, 64 gb memory, and a Intel GPU. These are not meant to be "drop in and go" but rather a starting point for those of you trying to get a rootless container spun up from a template that was working on my system.*
+* *You will need to edit these .container and .env files to fit your situation. These work on my setup, which is an Intel 13i7 with 2.0 tb NVME, 64 gb memory, and a Intel GPU. These are not meant to be "drop in and go" but rather a starting point for those of you trying to get a rootless container spun up from a template that was working on my system. You will find changes I made based on my filesystem layout, open ports, and GPU.*
 
 * * *
 
