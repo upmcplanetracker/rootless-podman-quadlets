@@ -9,48 +9,32 @@ Network=immich.network
 ContainerName=immich-server
 HostName=immich-server
 Image=ghcr.io/immich-app/immich-server:release
-
-# Port – main API and web UI
 PublishPort=2283:2283
-
-# Environment – secrets loaded from file
 EnvironmentFile=%h/.config/containers/systemd/immich-server.env
-
-# Non‑secret env vars
 Environment=TZ=America/New_York
 Environment=DB_DATABASE_NAME=immich
 Environment=DB_HOSTNAME=immich-postgres
 Environment=REDIS_HOSTNAME=immich-redis
 Environment=IMMICH_MACHINE_LEARNING_URL=http://immich-machine-learning:3003
-
-# Media volume – where your photos live
 Volume=%h/Pictures:/data:z
-
-# GPU device (for hardware transcoding)
-#AddDevice=/dev/dri
-#GroupAdd=keep-groups
-
-# ---------- Hardening (uncomment to lock down) ----------
-#ReadOnly=true
-#NoNewPrivileges=yes
-#DropCapability=all
-#AddCapability=CAP_SETUID
-#AddCapability=CAP_SETGID
-#AddCapability=CAP_CHOWN
-#AddCapability=CAP_DAC_OVERRIDE
-
-# ---------- Temporary filesystems (required if ReadOnly=true) ----------
-#Mount=type=tmpfs,destination=/tmp,tmpfs-size=2G,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/run,tmpfs-size=128M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/dev/shm,tmpfs-size=512M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
-
-# ---------- Resource limits ----------
-#PodmanArgs=--memory=16G
-#CPUAccounting=yes
-#CPUShares=1024
-#CPUQuota=1000%
-#AllowedCPUs=0-15
+AddDevice=/dev/dri
+GroupAdd=keep-groups
+ReadOnly=true
+NoNewPrivileges=yes
+DropCapability=all
+AddCapability=CAP_SETUID
+AddCapability=CAP_SETGID
+AddCapability=CAP_CHOWN
+AddCapability=CAP_DAC_OVERRIDE
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=2G,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/run,tmpfs-size=128M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/dev/shm,tmpfs-size=512M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
+PodmanArgs=--memory=16G
+CPUAccounting=yes
+CPUShares=1024
+CPUQuota=1000%
+AllowedCPUs=0-15
 
 [Service]
 Restart=on-failure
