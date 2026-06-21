@@ -2,7 +2,6 @@
 Description=Plex Media Server (Rootless)
 Wants=podman-user-wait-network-online.service
 After=podman-user-wait-network-online.service
-# Tautulli is started after Plex and depends on it
 PropagatesStopTo=tautulli.service
 
 [Container]
@@ -10,41 +9,26 @@ ContainerName=plex
 Image=docker.io/plexinc/pms-docker:latest
 AutoUpdate=registry
 HostName=your-hostname
-
-# User mapping – must match your host user (default 1000:1000)
 Environment=PLEX_UID=1000
 Environment=PLEX_GID=1000
 Environment=TZ=America/New_York
 Environment=VERSION=docker
-
-# Ports
 PublishPort=32400:32400
-# PublishPort=8181:8181
-#if using tautulli
-
-# GPU device for hardware transcoding (Intel QuickSync / VAAPI)
+PublishPort=8181:8181
 AddDevice=/dev/dri:/dev/dri:rw
-
-# Volumes – media folders (adjust to your paths)
 Volume=%h/plex/config:/config
 Volume=%h/Videos/tvshows:/data/tvshows:rw
 Volume=%h/Videos/Movies:/data/movies:rw
 Volume=%h/Music/music:/data/music:rw
-
-# ---------- Hardening (uncomment to lock down the container) ----------
-# The tmpfs mounts are required for transcoding and runtime; enable them with ReadOnly=false or keep commented if you don't need a read‑only root.
-#NoNewPrivileges=yes
-#DropCapability=CAP_MKNOD
-#DropCapability=CAP_NET_RAW
-#DropCapability=CAP_AUDIT_WRITE
-#ReadOnly=yes
-#if you enable ReadOnly you must uncomment all the tmpfs= below
-
-# ---------- Temporary filesystems ----------
-#Tmpfs=/transcode:size=8G,rw,mode=1777
-#Tmpfs=/tmp:size=2G,rw,mode=1777
-#Tmpfs=/var/tmp:size=512M,rw,mode=1777
-#Tmpfs=/dev/shm:size=8G,rw,mode=1777
+NoNewPrivileges=yes
+DropCapability=CAP_MKNOD
+DropCapability=CAP_NET_RAW
+DropCapability=CAP_AUDIT_WRITE
+ReadOnly=yes
+Tmpfs=/transcode:size=8G,rw,mode=1777
+Tmpfs=/tmp:size=2G,rw,mode=1777
+Tmpfs=/var/tmp:size=512M,rw,mode=1777
+Tmpfs=/dev/shm:size=8G,rw,mode=1777
 
 [Service]
 Restart=on-failure
