@@ -9,27 +9,16 @@ ContainerName=immich-public-proxy
 HostName=immich-public-proxy
 Network=immich.network
 AutoUpdate=registry
-
-# Port
 PublishPort=3003:3000
-
 Environment=TZ=America/New_York
-# Replace with your actual public domain
 Environment=PUBLIC_BASE_URL=https://photos.YOUR_DOMAIN.com
-# Replace with your Immich server's address
 Environment=IMMICH_URL=http://YOUR_SERVER_HOSTNAME:2283
-
-# ---------- Hardening ----------
-#NoNewPrivileges=yes
-
-# ---------- Temporary filesystems ----------
-#Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/var/log,tmpfs-size=32M,tmpfs-mode=1777
-
-# ---------- Resource limits ----------
-#CPUQuota=25%
-#MemoryMax=128M
-#MemoryReservation=64M
+NoNewPrivileges=yes
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/log,tmpfs-size=32M,tmpfs-mode=1777
+CPUQuota=25%
+MemoryMax=128M
+MemoryReservation=64M
 
 [Service]
 Restart=on-failure
