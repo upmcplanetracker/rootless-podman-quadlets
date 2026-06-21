@@ -24,11 +24,3 @@ Two‑container Calibre stack:
 3. Start the GUI: `systemctl --user enable --now calibre-gui.service`
 4. Once the GUI is up, start the web frontend: `systemctl --user enable --now calibre-web.service`
 5. Open Calibre‑Web (`http://<your-ip>:8091`) and follow the setup wizard; point it to the database at `/books`.
-
-## GPU acceleration (optional)
-The GUI can use hardware acceleration for the VNC session.  
-Uncomment the `AddDevice` and `PodmanArgs` lines in `calibre-gui.container` if you have an Intel GPU.
-
-## Hardening
-All security directives are commented out. Uncomment them together with the tmpfs mounts if you need a locked‑down container.  
-The tmpfs sizes are generous for browsing and caching; adjust if disk usage is a concern.
