@@ -9,42 +9,27 @@ Network=immich.network
 ContainerName=immich-postgres
 HostName=immich-postgres
 Image=ghcr.io/immich-app/postgres:18-vectorchord0.5.3
-
-# Environment – database name and extra init args
 Environment=POSTGRES_DB=immich
 Environment=POSTGRES_INITDB_ARGS=--data-checksums
-# Secrets loaded from env file
 EnvironmentFile=%h/.config/containers/systemd/immich-postgres.env
 Environment=TZ=America/New_York
-
-# Persistent storage
 Volume=%h/immich-app/postgres:/var/lib/postgresql
-
-# Postgres tuning (commented out by default – uncomment if needed)
-#Environment=POSTGRES_MAX_WAL_SIZE=4GB
-#Environment=POSTGRES_SHARED_BUFFERS=1GB
-#Environment=POSTGRES_EFFECTIVE_CACHE_SIZE=12GB
-
-# Shared memory for Postgres
+Environment=POSTGRES_MAX_WAL_SIZE=4GB
+Environment=POSTGRES_SHARED_BUFFERS=1GB
+Environment=POSTGRES_EFFECTIVE_CACHE_SIZE=12GB
 ShmSize=2G
-
-# ---------- Hardening (uncomment to lock down) ----------
-#NoNewPrivileges=yes
-#DropCapability=all
-#AddCapability=CAP_CHOWN
-#AddCapability=CAP_DAC_OVERRIDE
-#AddCapability=CAP_FOWNER
-#AddCapability=CAP_SETGID
-#AddCapability=CAP_SETUID
-
-# ---------- Temporary filesystems (required if ReadOnly=true) ----------
-#Mount=type=tmpfs,destination=/tmp,tmpfs-size=1G,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/var/run/postgresql,tmpfs-size=32M,tmpfs-mode=1777
-
-# ---------- Resource limits ----------
-#Memory=4G
-#CPUShares=256
+NoNewPrivileges=yes
+DropCapability=all
+AddCapability=CAP_CHOWN
+AddCapability=CAP_DAC_OVERRIDE
+AddCapability=CAP_FOWNER
+AddCapability=CAP_SETGID
+AddCapability=CAP_SETUID
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=1G,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/run/postgresql,tmpfs-size=32M,tmpfs-mode=1777
+Memory=4G
+CPUShares=256
 
 [Service]
 Restart=on-failure
