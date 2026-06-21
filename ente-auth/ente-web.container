@@ -8,41 +8,29 @@ ContainerName=ente-web
 AutoUpdate=registry
 Network=ente.network
 Image=ghcr.io/ente-io/web
-
-# Ports – Auth and Accounts (3003, 3001)
 PublishPort=3401:3001
 PublishPort=3403:3003
-
-# Environment
 Environment=TZ=America/New_York
-# Replace with your server’s actual address
 Environment=ENTE_API_ORIGIN=http://ip-to-your-server:8085
 Environment=ENTE_ACCOUNTS_ORIGIN=http://ente-web:3401
 Environment=ENTE_AUTH_ORIGIN=http://ente-web:3403
 Environment=ENTE_ALBUMS_ORIGIN=http://ente-web:3402
 Environment=ENTE_PHOTOS_ORIGIN=http://ente-web:3400
-# The public endpoint where your users reach Ente (must be HTTPS in production)
-Environment=NEXT_PUBLIC_ENTE_ENDPOINT=https://enteapi.rickinmarks.com
-
-# Log rotation
+Environment=NEXT_PUBLIC_ENTE_ENDPOINT=https://your-url
 LogDriver=k8s-file
 LogOpt=max-size=10mb
-
-# ---------- Hardening (uncomment to lock down) ----------
-#NoNewPrivileges=yes
-#DropCapability=all
-#AddCapability=CAP_NET_BIND_SERVICE
-#AddCapability=CAP_SETUID
-#AddCapability=CAP_SETGID
-#AddCapability=CAP_CHOWN
-#AddCapability=CAP_DAC_OVERRIDE
-
-# ---------- Temporary filesystems ----------
-#Mount=type=tmpfs,destination=/tmp,tmpfs-size=128M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/var/cache/nginx,tmpfs-size=128M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/var/lib/nginx,tmpfs-size=64M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/var/log/nginx,tmpfs-size=32M,tmpfs-mode=1777
+NoNewPrivileges=yes
+DropCapability=all
+AddCapability=CAP_NET_BIND_SERVICE
+AddCapability=CAP_SETUID
+AddCapability=CAP_SETGID
+AddCapability=CAP_CHOWN
+AddCapability=CAP_DAC_OVERRIDE
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=128M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/cache/nginx,tmpfs-size=128M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/lib/nginx,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/log/nginx,tmpfs-size=32M,tmpfs-mode=1777
 
 [Service]
 Restart=on-failure
