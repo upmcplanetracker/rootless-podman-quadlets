@@ -13,10 +13,10 @@ Environment=HUB_URL=http://your-beszel-server:8090
 Environment=KEY=your-ssh-key
 Network=host
 Environment=PORT=45876
-#NoNewPrivileges=yes
-#Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/run,tmpfs-size=16M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/var/log,tmpfs-size=16M,tmpfs-mode=1777
+NoNewPrivileges=yes
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/run,tmpfs-size=16M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/log,tmpfs-size=16M,tmpfs-mode=1777
 
 [Service]
 Restart=on-failure
