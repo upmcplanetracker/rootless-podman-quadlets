@@ -8,39 +8,22 @@ Image=ghcr.io/c4illin/convertx:latest
 ContainerName=convertx
 HostName=convertx
 AutoUpdate=registry
-
-# Ports – host:container (internal service listens on 3000)
 PublishPort=3002:3000
-
-# Volumes – persistent data store
 Volume=%h/convertx/data:/app/data
-
-# Environment
 Environment=TZ=America/New_York
 Environment=HTTP_ALLOWED=true
-
-# ---------- Secrets (uncomment and create an env file for API keys) ----------
-#EnvironmentFile=%h/.config/containers/systemd/convertx.env
-
-# ---------- Logging (rotate logs to avoid disk bloat) ----------
+EnvironmentFile=%h/.config/containers/systemd/convertx.env
 LogDriver=k8s-file
 LogOpt=max-size=10m
 LogOpt=max-file=3
-
-# ---------- Hardening (uncomment to lock down the container) ----------
-# If you enable ReadOnly, you must also uncomment the tmpfs mounts below.
-#NoNewPrivileges=true
-#ReadOnly=true
-#DropCapability=all
-#AddCapability=CAP_NET_BIND_SERVICE
-
-# ---------- Temporary filesystems (required if ReadOnly=true) ----------
-#Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/run,tmpfs-size=16M,tmpfs-mode=1777
-
-# ---------- Resource limits (optional) ----------
-#PodmanArgs=--memory=1g
+NoNewPrivileges=true
+ReadOnly=true
+DropCapability=all
+AddCapability=CAP_NET_BIND_SERVICE
+Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/run,tmpfs-size=16M,tmpfs-mode=1777
+PodmanArgs=--memory=1g
 
 [Service]
 Restart=on-failure
