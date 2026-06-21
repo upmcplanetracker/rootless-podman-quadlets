@@ -7,34 +7,23 @@ ContainerName=calibre-web
 HostName=calibre-web
 Image=lscr.io/linuxserver/calibre-web:latest
 AutoUpdate=registry
-
-# Port – web frontend for browsing/reading
 PublishPort=8091:8083
-
-# Environment
 Environment=TZ=America/New_York
-# Use your host user's UID/GID (default 1000)
-#Environment=PUID=1000
-#Environment=PGID=1000
-
-# Volumes
+Environment=PUID=1000
+Environment=PGID=1000
 Volume=%h/.config/calibre-web:/config
 Volume=%h/calibre:/books:rw
-
-# ---------- Hardening (uncomment to lock down) ----------
-#NoNewPrivileges=yes
-#DropCapability=all
-#AddCapability=CAP_SETUID
-#AddCapability=CAP_SETGID
-#AddCapability=CAP_CHOWN
-#AddCapability=CAP_DAC_OVERRIDE
-
-# ---------- Temporary filesystems (required if ReadOnly=true) ----------
-#Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/var/cache,tmpfs-size=128M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/app/calibre-web/cps/cache,tmpfs-size=128M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
+NoNewPrivileges=yes
+DropCapability=all
+AddCapability=CAP_SETUID
+AddCapability=CAP_SETGID
+AddCapability=CAP_CHOWN
+AddCapability=CAP_DAC_OVERRIDE
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/cache,tmpfs-size=128M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/app/calibre-web/cps/cache,tmpfs-size=128M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
 
 [Service]
 Restart=on-failure
