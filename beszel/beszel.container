@@ -11,13 +11,12 @@ Environment=APP_URL=http://localhost:8090
 PublishPort=8090:8090
 Volume=%h/beszel_data:/beszel_data
 Environment=TZ=America/New_York
-#Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/run,tmpfs-size=16M,tmpfs-mode=1777
-#Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
-#NoNewPrivileges=yes
-#ReadOnly=yes
-#DropCapability=all
-#if using ReadOnly will need to uncomment Mount=
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/run,tmpfs-size=16M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
+NoNewPrivileges=yes
+ReadOnly=yes
+DropCapability=all
 
 [Service]
 Restart=on-failure
