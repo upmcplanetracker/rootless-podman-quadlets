@@ -7,7 +7,7 @@ HostName=ente-web
 ContainerName=ente-web
 AutoUpdate=registry
 Network=ente.network
-Image=ghcr.io/ente-io/web
+Image=ghcr.io/ente/web
 PublishPort=3401:3001
 PublishPort=3403:3003
 Environment=TZ=America/New_York
