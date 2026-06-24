@@ -7,7 +7,7 @@ PropagatesStopTo=calibre-web.service
 [Container]
 ContainerName=calibre-gui
 HostName=calibre-gui
-Image=lscr.io/linuxserver/calibre:latest
+Image=ghcr.io/linuxserver/calibre:latest
 AutoUpdate=registry
 PublishPort=8090:8181
 Environment=TZ=America/New_York
