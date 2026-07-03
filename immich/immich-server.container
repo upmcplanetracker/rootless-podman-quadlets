@@ -16,7 +16,7 @@ Environment=DB_DATABASE_NAME=immich
 Environment=DB_HOSTNAME=immich-postgres
 Environment=REDIS_HOSTNAME=immich-redis
 Environment=IMMICH_MACHINE_LEARNING_URL=http://immich-machine-learning:3003
-Volume=%h/Pictures:/data:z
+Volume=%h/Pictures:/usr/src/app/upload:z
 AddDevice=/dev/dri
 GroupAdd=keep-groups
 ReadOnly=true
