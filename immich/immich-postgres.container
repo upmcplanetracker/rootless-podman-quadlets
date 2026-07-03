@@ -9,11 +9,13 @@ Network=immich.network
 ContainerName=immich-postgres
 HostName=immich-postgres
 Image=ghcr.io/immich-app/postgres:18-vectorchord0.5.3
+
+Exec=postgres -c log_timezone=America/New_York -c shared_preload_libraries=vchord
+EnvironmentFile=%h/.config/containers/systemd/immich-postgres.env
 Environment=POSTGRES_DB=immich
 Environment=POSTGRES_INITDB_ARGS=--data-checksums
-EnvironmentFile=%h/.config/containers/systemd/immich-postgres.env
-Environment=TZ=America/New_York
 Volume=%h/immich-app/postgres:/var/lib/postgresql
+Environment=TZ=America/New_York
 Environment=POSTGRES_MAX_WAL_SIZE=4GB
 Environment=POSTGRES_SHARED_BUFFERS=1GB
 Environment=POSTGRES_EFFECTIVE_CACHE_SIZE=12GB
