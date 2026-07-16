@@ -10,7 +10,6 @@ Image=ghcr.io/haveagitgat/tdarr:latest
 AutoUpdate=registry
 PublishPort=8265:8265
 PublishPort=8266:8266
-PublishPort=8267:8267
 AddDevice=/dev/dri:/dev/dri:rw
 Environment=TZ=America/New_York
 Environment=serverPort=8266
