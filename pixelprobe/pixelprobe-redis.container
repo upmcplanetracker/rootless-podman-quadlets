@@ -1,0 +1,21 @@
+[Unit]
+Description=PixelProbe Redis (Celery broker/backend)
+After=network-online.target
+
+[Container]
+Image=docker.io/valkey/valkey:9
+ContainerName=pixelprobe-redis
+HostName=pixelprobe-redis
+Network=pixel.network
+Exec=redis-server --maxmemory 2000mb --maxmemory-policy allkeys-lru
+Environment=TZ=America/New_York
+AutoUpdate=registry
+HealthCmd=redis-cli ping
+HealthInterval=5s
+HealthRetries=5
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
