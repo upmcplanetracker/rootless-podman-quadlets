@@ -1,0 +1,11 @@
+[Network]
+NetworkName=plex.network
+IPv6=true
+Internal=false
+# need to set ipv4/ipv6 subnet/gateway because
+# tautulli isn't smart enough to find plex when IP
+# addresses change
+Subnet=10.89.2.0/24
+Gateway=10.89.2.1
+Subnet=fdad:389f:b6c1:d977::/64
+Gateway=fdad:389f:b6c1:d977::1
