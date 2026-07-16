@@ -3,7 +3,7 @@ Description=Paperless Redis Broker
 After=podman-user-wait-network-online.service paperless-webserver.service
 
 [Container]
-Image=docker.io/valkey/valkey:9-alpine
+Image=docker.io/valkey/valkey:9
 ContainerName=paperless-redis
 HostName=paperless-redis
 Network=container:paperless-webserver
