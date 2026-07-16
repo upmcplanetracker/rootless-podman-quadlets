@@ -1,0 +1,25 @@
+[Unit]
+Description=MusicBrainz Picard Web GUI (Rootless)
+After=podman-user-wait-network-online.service
+Wants=podman-user-wait-network-online.service 
+
+[Container]
+Image=docker.io/jlesage/musicbrainz-picard:latest
+ContainerName=musicbrainz
+HostName=musicbrainz
+PublishPort=5800:5800
+Environment=TZ=America/New_York
+Environment=KEEP_APP_RUNNING=1
+Volume=%h/picard:/config:rw
+Volume=%h/picard/staging:/storage:rw
+AutoUpdate=registry
+NoNewPrivileges=true
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/run,tmpfs-size=16M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/cache/nginx,tmpfs-size=64M,tmpfs-mode=1777
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
