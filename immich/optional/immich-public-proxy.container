@@ -1,6 +1,6 @@
 [Unit]
-Description=Immich Public Proxy (Optional)
-Wants=immich-server.service
+Description=Immich Public Proxy
+Requires=immich-server.service
 After=immich-server.service
 
 [Container]
@@ -8,20 +8,25 @@ Image=ghcr.io/alangrainger/immich-public-proxy:latest
 ContainerName=immich-public-proxy
 HostName=immich-public-proxy
 Network=immich.network
-AutoUpdate=registry
 PublishPort=3003:3000
-Environment=TZ=America/New_York
-Environment=PUBLIC_BASE_URL=https://photos.YOUR_DOMAIN.com
-Environment=IMMICH_URL=http://YOUR_SERVER_HOSTNAME:2283
-NoNewPrivileges=yes
+AutoUpdate=registry
+User=1000:1000
+Volume=%h/immich-app/ipp-config.json:/app/config.json:ro
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/var/log,tmpfs-size=32M,tmpfs-mode=1777
-CPUQuota=25%
-MemoryMax=128M
-MemoryReservation=64M
+Environment=TZ=America/New_York
+Environment=PUBLIC_BASE_URL=https://photos.yourdomain.com
+Environment=IMMICH_URL=http://immich-webserver:2283
+NoNewPrivileges=yes
+DropCapability=all
+ReadOnly=true
 
 [Service]
+ExecStartPre=/bin/sleep 15
 Restart=on-failure
+CPUQuota=25%
+MemoryMax=128M
+MemoryLow=64M
 
 [Install]
 WantedBy=default.target
