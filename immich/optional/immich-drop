@@ -1,0 +1,33 @@
+[Unit]
+Description=Immich Drop
+After=podman-user-wait-network-online.service
+Wants=podman-user-wait-network-online.service 
+Requires=immich-server.service
+After=immich-server.service
+
+[Container]
+Image=docker.io/ttlequals0/immich-drop:latest
+ContainerName=immich-drop
+HostName=immich-drop
+Environment=HOST=::
+Network=immich.network
+AutoUpdate=registry
+EnvironmentFile=%h/.config/containers/systemd/immich-drop.env
+Volume=%h/immich-app/immich-drop:/data
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/log,tmpfs-size=32M,tmpfs-mode=1777
+Environment=TZ=America/New_York
+PublishPort=8079:8080
+NoNewPrivileges=yes
+Environment=CHUNKED_UPLOADS_ENABLED=true
+Environment=CHUNK_SIZE_MB=95
+Environment=LOG_LEVEL=INFO
+DropCapability=all
+ReadOnly=true
+
+[Service]
+ExecStartPre=/bin/sleep 15
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
