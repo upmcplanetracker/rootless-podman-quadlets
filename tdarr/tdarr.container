@@ -26,10 +26,10 @@ Volume=%h/Videos/Movies:/media/movies:rw
 Volume=%h/Videos/tvshows:/media/tvshows:rw
 Volume=/temp:/temp
 NoNewPrivileges=true
-Tmpfs=/app/unmappedNodeCache:size=1G,rw,mode=1777
-Tmpfs=/tmp:size=1G,rw,mode=1777
-Tmpfs=/run:size=64M,rw,mode=1777
-Tmpfs=/app/configs:size=32M,rw,mode=1777
+Mount=type=tmpfs,destination=/app/unmappedNodeCache,tmpfs-size=1G,tmpfs-mode=1777,rw
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=1G,tmpfs-mode=1777,rw
+Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777,rw
+Mount=type=tmpfs,destination=/app/configs,tmpfs-size=32M,tmpfs-mode=1777,rw
 
 [Service]
 Restart=on-failure
