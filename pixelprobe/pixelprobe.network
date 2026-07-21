@@ -1,4 +1,4 @@
 [Network]
-NetworkName=pixel.network
+NetworkName=pixelprobe.network
 IPv6=true
 Internal=false
