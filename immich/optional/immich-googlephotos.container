@@ -1,6 +1,8 @@
 [Unit]
-Description=GPhotos2Immich Sync Service (Optional)
-Wants=immich-server.service
+Description=GPhotos2Immich Sync Service
+After=podman-user-wait-network-online.service
+Wants=podman-user-wait-network-online.service 
+Requires=immich-server.service
 After=immich-server.service
 
 [Container]
@@ -9,22 +11,25 @@ ContainerName=immich-googlephotos
 HostName=immich-googlephotos
 Network=immich.network
 AutoUpdate=registry
-PublishPort=8087:8087
-Environment=TZ=America/New_York
-Environment=PORT=8087
-Environment=DISABLE_WEBUI=false
 EnvironmentFile=%h/.config/containers/systemd/immich-googlephotos.env
 Volume=%h/immich-app/gphotos2immich/config.json:/app/config.json:Z
 Volume=%h/immich-app/gphotos2immich/data:/app/data:Z
-NoNewPrivileges=yes
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/var/log,tmpfs-size=32M,tmpfs-mode=1777
-CPUQuota=60%
-MemoryMax=1G
-MemoryReservation=512M
+Environment=TZ=America/New_York
+Environment=PORT=8087
+Environment=DISABLE_WEBUI=false
+PublishPort=8087:8087
+NoNewPrivileges=yes
+DropCapability=ALL
+ReadOnly=true
 
 [Service]
+ExecStartPre=/bin/sleep 15
 Restart=on-failure
+CPUQuota=60%
+MemoryMax=1G
+MemoryLow=512M
 
 [Install]
 WantedBy=default.target
