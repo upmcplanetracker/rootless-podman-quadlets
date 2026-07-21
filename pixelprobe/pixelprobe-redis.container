@@ -6,7 +6,7 @@ After=network-online.target
 Image=docker.io/valkey/valkey:9
 ContainerName=pixelprobe-redis
 HostName=pixelprobe-redis
-Network=pixel.network
+Network=pixelprobe.network
 Exec=redis-server --maxmemory 2000mb --maxmemory-policy allkeys-lru
 Environment=TZ=America/New_York
 AutoUpdate=registry
