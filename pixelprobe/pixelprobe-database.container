@@ -6,7 +6,7 @@ After=network-online.target
 Image=docker.io/library/postgres:18
 ContainerName=pixelprobe-database
 HostName=pixelprobe-database
-Network=pixel.network
+Network=pixelprobe.network
 EnvironmentFile=%h/.config/containers/systemd/pixelprobe.env
 Environment=POSTGRES_DB=pixelprobe
 Environment=POSTGRES_USER=pixelprobe
