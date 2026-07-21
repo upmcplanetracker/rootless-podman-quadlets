@@ -25,10 +25,10 @@ DropCapability=CAP_MKNOD
 DropCapability=CAP_NET_RAW
 DropCapability=CAP_AUDIT_WRITE
 ReadOnly=yes
-Tmpfs=/transcode:size=8G,rw,mode=1777
-Tmpfs=/tmp:size=2G,rw,mode=1777
-Tmpfs=/var/tmp:size=512M,rw,mode=1777
-Tmpfs=/dev/shm:size=8G,rw,mode=1777
+Mount=type=tmpfs,destination=/transcode,tmpfs-size=8G,tmpfs-mode=1777,rw
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=2G,tmpfs-mode=1777,rw
+Mount=type=tmpfs,destination=/var/tmp,tmpfs-size=512M,tmpfs-mode=1777,rw
+Mount=type=tmpfs,destination=/dev/shm,tmpfs-size=8G,tmpfs-mode=1777,rw
 
 [Service]
 Restart=on-failure
