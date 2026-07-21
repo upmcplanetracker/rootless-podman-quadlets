@@ -9,17 +9,21 @@ After=minuspod.service
 Image=docker.io/openvino/model_server:latest-gpu
 ContainerName=minuspod-transcriber
 HostName=minuspod-transcriber
-Network=container:minuspod
-User=0:0
-Annotation=run.oci.keep_original_groups=1
+Network=minuspod.network
+User=5000:5000
+GroupAdd=keep-groups
 AddDevice=/dev/dri:/dev/dri
 Volume=%h/openvino/models:/models:ro
-Exec=--config_path /models/config.json --rest_port 8001
+Exec=--config_path /models/config.json --rest_port 8001 --rest_bind_address 0.0.0.0,::
 Environment=TZ=America/New_York
 AutoUpdate=registry
 NoNewPrivileges=yes
+DropCapability=ALL
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
+ReadOnly=true
 
 [Service]
+ExecStartPre=/bin/sleep 10
 Restart=on-failure
 CPUQuota=300%
 MemoryMax=4G
