@@ -7,6 +7,8 @@ Wants=podman-user-wait-network-online.service
 Image=docker.io/deluan/navidrome:latest
 ContainerName=navidrome
 HostName=navidrome
+User=1000:1000
+UserNS=keep-id:uid=1000,gid=1000
 Environment=ND_SCANSCHEDULE=@every 1h
 Environment=ND_LOGLEVEL=info
 Environment=TZ=America/New_York
