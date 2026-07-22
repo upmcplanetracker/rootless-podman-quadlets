@@ -13,9 +13,6 @@ Volume=%h/convertx/data:/app/data
 Environment=TZ=America/New_York
 Environment=HTTP_ALLOWED=true
 EnvironmentFile=%h/.config/containers/systemd/convertx.env
-LogDriver=k8s-file
-LogOpt=max-size=10m
-LogOpt=max-file=3
 NoNewPrivileges=true
 ReadOnly=true
 DropCapability=all
@@ -23,7 +20,6 @@ AddCapability=CAP_NET_BIND_SERVICE
 Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/run,tmpfs-size=16M,tmpfs-mode=1777
-PodmanArgs=--memory=1g
 
 [Service]
 Restart=on-failure
