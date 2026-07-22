@@ -8,6 +8,8 @@ Image=docker.io/louislam/uptime-kuma:2
 ContainerName=uptime-kuma
 HostName=uptime-kuma
 AutoUpdate=registry
+User=1000:1000
+UserNS=keep-id:uid=1000,gid=1000
 PublishPort=3001:3001
 Environment=PORT=3001
 Environment=TZ=America/New_York
