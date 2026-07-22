@@ -9,6 +9,8 @@ HostName=tdarr-node
 Image=ghcr.io/haveagitgat/tdarr_node:latest
 AutoUpdate=registry
 AddDevice=/dev/dri:/dev/dri:rw
+Environment=PUID=1000
+Environment=PGID=1000
 Environment=TZ=America/New_York
 Environment=nodeName=your-node-name
 Environment=nodeID=your-node-name-node
