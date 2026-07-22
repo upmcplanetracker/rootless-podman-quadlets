@@ -8,9 +8,6 @@ Image=ghcr.io/gethomepage/homepage:latest
 ContainerName=homepage
 HostName=homepage
 AutoUpdate=registry
-LogDriver=k8s-file
-LogOpt=max-size=10m
-LogOpt=max-file=3
 UserNS=keep-id
 Environment=PUID=1000
 Environment=PGID=1000
