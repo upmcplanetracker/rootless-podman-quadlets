@@ -14,8 +14,6 @@ Environment=POSTGRES_DB=ente_db
 EnvironmentFile=%h/.config/containers/systemd/ente-database.env
 Environment=TZ=America/New_York
 Volume=%h/my-ente/db-data:/var/lib/postgresql
-LogDriver=k8s-file
-LogOpt=max-size=10mb
 NoNewPrivileges=true
 DropCapability=all
 AddCapability=CAP_CHOWN
