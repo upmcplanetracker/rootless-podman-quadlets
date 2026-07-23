@@ -1,6 +1,7 @@
 [Unit]
 Description=Immich Server
-Wants=podman-user-wait-network-online.service immich-network.service immich-postgres.service immich-redis.service immich-machine-learning.service
+Wants=podman-user-wait-network-online.service immich-network.service
+Requires=immich-postgres.service immich-redis.service immich-machine-learning.service
 After=podman-user-wait-network-online.service immich-network.service immich-postgres.service immich-redis.service immich-machine-learning.service
 
 [Container]
@@ -9,35 +10,34 @@ Network=immich.network
 ContainerName=immich-server
 HostName=immich-server
 Image=ghcr.io/immich-app/immich-server:release
-PublishPort=2283:2283
-EnvironmentFile=%h/.config/containers/systemd/immich-server.env
+Volume=%h/Pictures:/usr/src/app/upload:z
 Environment=TZ=America/New_York
+EnvironmentFile=%h/.config/containers/systemd/immich-server.env
 Environment=DB_DATABASE_NAME=immich
 Environment=DB_HOSTNAME=immich-postgres
 Environment=REDIS_HOSTNAME=immich-redis
 Environment=IMMICH_MACHINE_LEARNING_URL=http://immich-machine-learning:3003
-Volume=%h/Pictures:/usr/src/app/upload:z
+PublishPort=2283:2283
 AddDevice=/dev/dri
+UserNS=keep-id
+User=1000:1000
 GroupAdd=keep-groups
+Memory=16G
 ReadOnly=true
 NoNewPrivileges=yes
-DropCapability=all
-AddCapability=CAP_SETUID
-AddCapability=CAP_SETGID
-AddCapability=CAP_CHOWN
-AddCapability=CAP_DAC_OVERRIDE
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=2G,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/run,tmpfs-size=128M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/dev/shm,tmpfs-size=512M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
-PodmanArgs=--memory=16G
-CPUAccounting=yes
-CPUShares=1024
-CPUQuota=1000%
-AllowedCPUs=0-15
+DropCapability=all
 
 [Service]
+ExecStartPre=/bin/sleep 20
 Restart=on-failure
+CPUAccounting=yes
+CPUWeight=100
+CPUQuota=1000%
+AllowedCPUs=0-15
 
 [Install]
 WantedBy=default.target
