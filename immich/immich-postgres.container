@@ -9,32 +9,26 @@ Network=immich.network
 ContainerName=immich-postgres
 HostName=immich-postgres
 Image=ghcr.io/immich-app/postgres:18-vectorchord0.5.3
-
+Environment=TZ=America/New_York
 Exec=postgres -c log_timezone=America/New_York -c shared_preload_libraries=vchord
 EnvironmentFile=%h/.config/containers/systemd/immich-postgres.env
 Environment=POSTGRES_DB=immich
 Environment=POSTGRES_INITDB_ARGS=--data-checksums
 Volume=%h/immich-app/postgres:/var/lib/postgresql
-Environment=TZ=America/New_York
-Environment=POSTGRES_MAX_WAL_SIZE=4GB
-Environment=POSTGRES_SHARED_BUFFERS=1GB
-Environment=POSTGRES_EFFECTIVE_CACHE_SIZE=12GB
 ShmSize=2G
+Memory=4G
 NoNewPrivileges=yes
-DropCapability=all
-AddCapability=CAP_CHOWN
-AddCapability=CAP_DAC_OVERRIDE
-AddCapability=CAP_FOWNER
-AddCapability=CAP_SETGID
-AddCapability=CAP_SETUID
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=1G,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/var/run/postgresql,tmpfs-size=32M,tmpfs-mode=1777
-Memory=4G
-CPUShares=256
+Environment=DB_STORAGE_TYPE=SSD
+DropCapability=all
+User=1000:1000
+UserNS=keep-id
 
 [Service]
 Restart=on-failure
+CPUWeight=25
 
 [Install]
 WantedBy=default.target
