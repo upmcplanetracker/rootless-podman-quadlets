@@ -1,0 +1,23 @@
+[Unit]
+Description=Cloudflare Tunnel Container
+After=network-online.target
+
+[Container]
+Image=docker.io/cloudflare/cloudflared:latest
+ContainerName=cloudflared
+HostName=cloudflared
+User=1000:1000
+UserNS=keep-id
+# Replace YOUR_TOKEN_HERE with your base64 Cloudflare tunnel token
+Exec=tunnel --no-autoupdate run --token YOUR_TOKEN_HERE
+Environment=TZ=America/New_York
+AutoUpdate=registry
+
+# Optional: Attach to a custom Quadlet network if communicating with other containers by name
+# Network=media-net.network
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
