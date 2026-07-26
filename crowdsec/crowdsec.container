@@ -1,0 +1,27 @@
+[Unit]
+Description=CrowdSec Security Engine (Rootless)
+After=podman-user-wait-network-online.service
+Wants=podman-user-wait-network-online.service
+
+[Container]
+Image=docker.io/crowdsecurity/crowdsec:latest
+ContainerName=crowdsec
+HostName=crowdsec
+Environment=TZ=America/New_York
+AutoUpdate=registry
+Environment=COLLECTIONS=crowdsecurity/linux crowdsecurity/http-cve
+Volume=%h/crowdsec/data:/var/lib/crowdsec/data:U
+Volume=%h/crowdsec/config:/etc/crowdsec:U
+Environment=UPDATE_OPTION=true
+NoNewPrivileges=true
+DropCapability=all
+#AddCapability=CHOWN DAC_OVERRIDE FOWNER
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/log,tmpfs-size=32M,tmpfs-mode=1777
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
