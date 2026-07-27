@@ -1,0 +1,19 @@
+[Unit]
+Description=CrowdSec Cloudflare Worker Bouncer
+After=podman-user-wait-network-online.service crowdsec.service
+Wants=podman-user-wait-network-online.service
+
+
+[Container]
+Image=docker.io/crowdsecurity/cloudflare-worker-bouncer:latest
+ContainerName=crowdsec-worker-bouncer
+HostName=crowdsec-worker-bouncer
+Volume=%h/crowdsec-worker-bouncer/crowdsec-cloudflare-worker-bouncer.yaml:/etc/crowdsec/bouncers/crowdsec-cloudflare-worker-bouncer.yaml:ro
+AutoUpdate=registry
+Environment=TZ=America/New_York
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
