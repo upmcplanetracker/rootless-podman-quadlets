@@ -1,31 +1,20 @@
 [Unit]
-Description=CrowdSec Security Engine (Rootless)
-After=podman-user-wait-network-online.service
-Wants=podman-user-wait-network-online.service
+Description=Cloudflare Tunnel Container
+After=network-online.target
 
 [Container]
-Image=docker.io/crowdsecurity/crowdsec:latest
-ContainerName=crowdsec
-HostName=crowdsec
+Image=docker.io/cloudflare/cloudflared:latest
+ContainerName=cloudflared
+HostName=cloudflared
+User=1000:1000
+# Replace YOUR_TOKEN_HERE with your base64 Cloudflare tunnel token
+Exec=tunnel --no-autoupdate run --token YOUR_TOKEN_HERE
 Environment=TZ=America/New_York
-PublishPort=8080:8080
 AutoUpdate=registry
-Environment=ENROLL_KEY=yourkeyhere
-Environment=COLLECTIONS=crowdsecurity/linux crowdsecurity/http-cve crowdsecurity/whitelists-good-actors crowdsecurity/sshd crowdsecurity/base-http-scenarios
-Volume=%h/crowdsec/data:/var/lib/crowdsec/data
-Volume=%h/crowdsec/config:/etc/crowdsec
-Volume=/var/log:/var/log:ro
-Volume=/var/log/auth.log:/var/log/auth.log:ro
-Volume=/var/log/syslog:/var/log/syslog:ro
-Environment=UPDATE_OPTION=true
-Volume=/var/log/journal:/var/log/journal:ro
-Volume=/run/log/journal:/run/log/journal:ro
-Volume=/etc/machine-id:/etc/machine-id:ro
-Volume=%h/.local/share/containers/storage/overlay-containers:/var/lib/crowdsec/podman-containers:ro
-NoNewPrivileges=true
-Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
-Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
-Mount=type=tmpfs,destination=/var/log/crowdsec,tmpfs-size=32M,tmpfs-mode=1777
+
+# Optional: Attach to a custom Quadlet network if communicating with other containers by name
+# Network=media-net.network
+# Metwork=another.network
 
 [Service]
 Restart=on-failure
