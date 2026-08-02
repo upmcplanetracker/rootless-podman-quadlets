@@ -11,6 +11,7 @@ PublishPort=8091:8083
 Environment=TZ=America/New_York
 Environment=PUID=1000
 Environment=PGID=1000
+UserNS=keep-id
 Volume=%h/.config/calibre-web:/config
 Volume=%h/calibre:/books:rw
 NoNewPrivileges=yes
