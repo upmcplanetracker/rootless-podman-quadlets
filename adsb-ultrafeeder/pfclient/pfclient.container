@@ -25,6 +25,9 @@ ReadOnly=true
 Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/config,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/etc,tmpfs-size=64M,tmpfs-mode=1777
+Environment=S6_READ_ONLY_ROOT=1
 
 [Service]
 Restart=on-failure
