@@ -1,7 +1,9 @@
 [Unit]
 Description=PlaneFinder Client
 After=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
-Wants=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
+Wants=podman-user-wait-network-online.service adsb-network.service
+BindsTo=ultrafeeder.service
+PartOf=ultrafeeder.service
 
 [Container]
 HostName=pfclient
@@ -30,7 +32,7 @@ Mount=type=tmpfs,destination=/etc,tmpfs-size=64M,tmpfs-mode=1777
 Environment=S6_READ_ONLY_ROOT=1
 
 [Service]
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=default.target
