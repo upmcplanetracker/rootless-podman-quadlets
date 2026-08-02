@@ -38,8 +38,15 @@ Volume=/proc/diskstats:/proc/diskstats:ro
 NoNewPrivileges=true
 Mount=type=tmpfs,destination=/run,tmpfs-size=256M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=128M,tmpfs-mode=1777
-Mount=type=tmpfs,destination=/var/log,tmpfs-size=32M,tmpfs-mode=1777
-Mount=type=tmpfs,destination=/var/cache/lighttpd,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/run,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/tmp,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/lib,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/etc,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/usr/local/share/tar1090,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/usr/share/graphs1090/html,tmpfs-size=64M,tmpfs-mode=1777
+Environment=S6_READ_ONLY_ROOT=1
+ReadOnly=yes
 
 [Service]
 Restart=on-failure
