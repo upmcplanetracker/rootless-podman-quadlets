@@ -9,10 +9,12 @@ ContainerName=calibre-gui
 HostName=calibre-gui
 Image=ghcr.io/linuxserver/calibre:latest
 AutoUpdate=registry
-PublishPort=8090:8181
+PublishPort=8181:8181
+Environment=S6_READ_ONLY_ROOT=1
 Environment=TZ=America/New_York
 Environment=PUID=1000
 Environment=PGID=1000
+User=0:0
 UserNS=keep-id
 EnvironmentFile=%h/.config/containers/systemd/calibre-gui.env
 Volume=%h/.config/calibre-gui:/config
@@ -26,8 +28,8 @@ AddCapability=CAP_SETUID
 AddCapability=CAP_SETGID
 AddCapability=CAP_CHOWN
 AddCapability=CAP_DAC_OVERRIDE
+AddCapability=CAP_KILL
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=1G,tmpfs-mode=1777
-Mount=type=tmpfs,destination=/run,tmpfs-size=256M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/var/cache,tmpfs-size=512M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
 
