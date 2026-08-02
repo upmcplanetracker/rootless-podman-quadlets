@@ -21,6 +21,9 @@ NoNewPrivileges=true
 Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=1G,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
+DropCapability=ALL
+AddCapability=CAP_SETUID CAP_SETGID
+ReadOnly=yes
 
 [Service]
 Restart=on-failure
