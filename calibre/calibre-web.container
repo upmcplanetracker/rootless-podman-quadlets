@@ -11,6 +11,7 @@ PublishPort=8091:8083
 Environment=TZ=America/New_York
 Environment=PUID=1000
 Environment=PGID=1000
+User=0:0
 UserNS=keep-id
 Volume=%h/.config/calibre-web:/config
 Volume=%h/calibre:/books:rw
@@ -20,8 +21,9 @@ AddCapability=CAP_SETUID
 AddCapability=CAP_SETGID
 AddCapability=CAP_CHOWN
 AddCapability=CAP_DAC_OVERRIDE
+AddCapability=CAP_KILL
+Environment=S6_READ_ONLY_ROOT=1
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
-Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/var/cache,tmpfs-size=128M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/app/calibre-web/cps/cache,tmpfs-size=128M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
