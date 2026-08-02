@@ -23,8 +23,7 @@ Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
 ReadOnly=true
 
 [Service]
-ExecStartPre=/bin/sleep 10
-Restart=on-failure
+Restart=always
 CPUQuota=300%
 MemoryMax=4G
 MemoryReservation=2G
