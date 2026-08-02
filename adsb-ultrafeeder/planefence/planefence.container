@@ -2,6 +2,8 @@
 Description=PlaneFence ADSB Analytics
 After=podman-user-wait-network-online.service ultrafeeder.service
 Wants=podman-user-wait-network-online.service
+BindsTo=ultrafeeder.service
+PartOf=ultrafeeder.service
 
 [Container]
 HostName=planefence
@@ -24,7 +26,7 @@ Mount=type=tmpfs,destination=/run,tmpfs-size=512M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=128M,tmpfs-mode=1777
 
 [Service]
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=default.target
