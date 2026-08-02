@@ -1,7 +1,9 @@
 [Unit]
 Description=RadarVirtuel Feeder (Rootless)
 After=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
-Wants=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
+Wants=podman-user-wait-network-online.service adsb-network.service
+BindsTo=ultrafeeder.service
+PartOf=ultrafeeder.service
 
 [Container]
 HostName=radarvirtuel
@@ -26,9 +28,8 @@ Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/opt/feeder_rv,tmpfs-size=4M,tmpfs-mode=1777
 StopSignal=SIGKILL
 
-
 [Service]
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=default.target
