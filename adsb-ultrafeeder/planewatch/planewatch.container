@@ -1,7 +1,9 @@
 [Unit]
 Description=Plane Watch Feeder
 After=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
-Wants=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
+Wants=podman-user-wait-network-online.service adsb-network.service
+BindsTo=ultrafeeder.service
+PartOf=ultrafeeder.service
 
 [Container]
 HostName=planewatch
@@ -27,7 +29,7 @@ Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/etc,tmpfs-size=64M,tmpfs-mode=1777
 
 [Service]
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=default.target
