@@ -24,6 +24,11 @@ NoNewPrivileges=true
 Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=0755
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/var/log,tmpfs-size=16M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/var/lib,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/usr/share,tmpfs-size=64M,tmpfs-mode=1777
+Environment=S6_READ_ONLY_ROOT=1
+ReadOnly=yes
+
 
 [Service]
 Restart=on-failure
