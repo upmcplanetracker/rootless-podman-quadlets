@@ -18,6 +18,7 @@ NoNewPrivileges=yes
 DropCapability=all
 AddCapability=CAP_NET_BIND_SERVICE
 User=1000:1000
+UserNS=keep-id
 ReadOnly=true
 Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
