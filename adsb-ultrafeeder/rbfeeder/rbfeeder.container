@@ -27,6 +27,11 @@ AddCapability=CAP_DAC_OVERRIDE
 Mount=type=tmpfs,destination=/run,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=64M,tmpfs-mode=1777
 Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/etc,tmpfs-size=16M,tmpfs-mode=1777
+Environment=RB_SERVER=true
+Environment=S6_READ_ONLY_ROOT=1
+ReadOnly=yes
+
 
 [Service]
 Restart=on-failure
