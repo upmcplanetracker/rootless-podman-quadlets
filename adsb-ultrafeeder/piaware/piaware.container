@@ -2,7 +2,8 @@
 Description=PiAware Feeder (Rootless)
 After=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
 Wants=podman-user-wait-network-online.service adsb-network.service 
-Requires=ultrafeeder.service
+BindsTo=ultrafeeder.service
+PartOf=ultrafeeder.service
 
 [Container]
 Image=ghcr.io/sdr-enthusiasts/docker-piaware:latest
@@ -42,8 +43,7 @@ Environment=S6_READ_ONLY_ROOT=1
 ReadOnly=yes
 
 [Service]
-ExecStartPre=/bin/sleep 20
-#Restart=on-failure
+Restart=always
 ExecStartPost=/usr/bin/podman exec piaware ip link set dev eth0 mtu 1500
 
 [Install]
