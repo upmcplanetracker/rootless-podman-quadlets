@@ -13,6 +13,7 @@ PublishPort=8090:8181
 Environment=TZ=America/New_York
 Environment=PUID=1000
 Environment=PGID=1000
+UserNS=keep-id
 EnvironmentFile=%h/.config/containers/systemd/calibre-gui.env
 Volume=%h/.config/calibre-gui:/config
 Volume=%h/calibre:/calibre-library
