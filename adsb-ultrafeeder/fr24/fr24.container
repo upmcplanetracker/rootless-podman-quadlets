@@ -1,7 +1,9 @@
 [Unit]
 Description=fr24
 After=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
-Wants=podman-user-wait-network-online.service adsb-network.service ultrafeeder.service
+Wants=podman-user-wait-network-online.service adsb-network.service
+BindsTo=ultrafeeder.service
+PartOf=ultrafeeder.service
 
 [Container]
 HostName=fr24
@@ -31,7 +33,7 @@ Environment=S6_READ_ONLY_ROOT=1
 ReadOnly=yes
 
 [Service]
-Restart=on-failure
+Restart=always
 
 [Install]
 WantedBy=default.target
