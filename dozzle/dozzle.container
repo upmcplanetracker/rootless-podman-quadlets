@@ -1,0 +1,25 @@
+[Unit]
+Description=Dozzle Log Viewer (Rootless)
+After=podman-user-wait-network-online.service
+Wants=podman-user-wait-network-online.service
+
+[Container]
+ContainerName=dozzle
+Image=docker.io/amir20/dozzle:latest
+HostName=dozzle
+AutoUpdate=registry
+Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
+Environment=DOCKER_HOST=unix:///var/run/docker.sock
+PublishPort=8080:8080
+ReadOnly=yes
+Mount=type=tmpfs,destination=/var/log,tmpfs-size=64M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/run,tmpfs-size=16M,tmpfs-mode=1777
+NoNewPrivileges=yes
+DropCapability=all
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
