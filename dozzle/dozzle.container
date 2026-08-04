@@ -8,6 +8,8 @@ ContainerName=dozzle
 Image=docker.io/amir20/dozzle:latest
 HostName=dozzle
 AutoUpdate=registry
+User=1000:1000
+UserNS=keep-id
 Volume=/run/user/1000/podman/podman.sock:/var/run/docker.sock:ro
 Environment=DOCKER_HOST=unix:///var/run/docker.sock
 PublishPort=8080:8080
