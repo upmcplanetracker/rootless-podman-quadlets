@@ -9,6 +9,7 @@ ContainerName=crowdsec-worker-bouncer
 HostName=crowdsec-worker-bouncer
 Volume=%h/crowdsec-worker-bouncer/crowdsec-cloudflare-worker-bouncer.yaml:/etc/crowdsec/bouncers/crowdsec-cloudflare-worker-bouncer.yaml:ro
 AutoUpdate=registry
+User=1000:1000
 Environment=TZ=America/New_York
 ReadOnly=true
 DropCapability=ALL
