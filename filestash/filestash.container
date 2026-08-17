@@ -1,0 +1,27 @@
+[Unit]
+Description=Filestash Web Interface (Rootless)
+After=network-online.target
+
+[Container]
+Image=docker.io/machines/filestash:latest
+ContainerName=filestash-web
+HostName=filestash-web
+PublishPort=8334:8334
+Volume=%h/filestash/data:/app/data/state:Z
+# you need to make both data and /data/logs directories before running this
+Environment=TZ=America/New_York
+AutoUpdate=registry
+Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
+Mount=type=tmpfs,destination=/run,tmpfs-size=16M,tmpfs-mode=1777
+UserNS=keep-id
+User=1000:1000
+Volume=/mount/whatever/here:/data/name-whatever:Z
+ReadOnly=true
+NoNewPrivileges=true
+DropCapability=ALL
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
