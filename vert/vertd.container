@@ -1,0 +1,28 @@
+[Unit]
+Description=VERT Video Conversion Daemon (vertd)
+After=podman-user-wait-network-online.service
+Wants=podman-user-wait-network-online.service
+
+[Container]
+Image=ghcr.io/vert-sh/vertd:latest
+#if you want a forked one that runs dual stack, use -
+#Image=ghcr.io/upmcplanetracker/vertd:latest
+ContainerName=vertd
+HostName=vertd
+Network=vert.network
+PublishPort=24153:24153
+AutoUpdate=registry
+AddDevice=/dev/dri
+GroupAdd=keep-groups
+Annotation=run.oci.keep_original_groups=1
+Environment=TZ=America/New_York
+Environment=VERTD_FORCE_GPU=intel
+Environment=VERTD_VAAPI_DEVICE_PATH=/dev/dri/renderD128
+NoNewPrivileges=true
+DropCapability=all
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
