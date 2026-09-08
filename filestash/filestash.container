@@ -8,7 +8,8 @@ ContainerName=filestash-web
 HostName=filestash-web
 PublishPort=8334:8334
 Volume=%h/filestash/data:/app/data/state:Z
-# you need to make both data and /data/logs directories before running this
+Volume=%h/filestash/cache:/app/data/cache:Z
+# you need to make cache, data, and /data/logs directories before running this
 Environment=TZ=America/New_York
 AutoUpdate=registry
 Mount=type=tmpfs,destination=/tmp,tmpfs-size=512M,tmpfs-mode=1777
